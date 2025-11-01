@@ -28,8 +28,9 @@ export const DatabaseService = {
     return bots.map(bot => ({
       ...bot,
       description: bot.description ?? undefined,
-      language: bot.language ?? undefined,
-      personality: bot.personality ?? undefined,
+      language: (bot.language ?? undefined) as any,
+      personality: (bot.personality ?? undefined) as any,
+      status: bot.status as any,
       createdAt: bot.createdAt.toISOString(),
       integrations: {
         whatsapp: bot.whatsappEnabled,
@@ -90,8 +91,9 @@ export const DatabaseService = {
     return {
       ...newBot,
       description: newBot.description ?? undefined,
-      language: newBot.language ?? undefined,
-      personality: newBot.personality ?? undefined,
+      language: (newBot.language ?? undefined) as any,
+      personality: (newBot.personality ?? undefined) as any,
+      status: newBot.status as any,
       createdAt: newBot.createdAt.toISOString(),
       integrations: {
         whatsapp: newBot.whatsappEnabled,
@@ -115,6 +117,8 @@ export const DatabaseService = {
     });
     return conversations.map(conv => ({
       ...conv,
+      status: conv.status as any,
+      channel: conv.channel as any,
       createdAt: conv.createdAt.toISOString(),
       messages: conv.messages.map(msg => ({
         ...msg,
@@ -144,6 +148,8 @@ export const DatabaseService = {
     });
     return {
       ...newConv,
+      status: newConv.status as any,
+      channel: newConv.channel as any,
       createdAt: newConv.createdAt.toISOString(),
       messages: newConv.messages.map(msg => ({
         ...msg,
@@ -207,8 +213,9 @@ export const DatabaseService = {
     return {
       ...updatedBot,
       description: updatedBot.description ?? undefined,
-      language: updatedBot.language ?? undefined,
-      personality: updatedBot.personality ?? undefined,
+      language: (updatedBot.language ?? undefined) as any,
+      personality: (updatedBot.personality ?? undefined) as any,
+      status: updatedBot.status as any,
       createdAt: updatedBot.createdAt.toISOString(),
       integrations: {
         whatsapp: updatedBot.whatsappEnabled,
@@ -237,6 +244,8 @@ export const DatabaseService = {
 
     return {
       ...updatedConv,
+      status: updatedConv.status as any,
+      channel: updatedConv.channel as any,
       createdAt: updatedConv.createdAt.toISOString(),
       messages: updatedConv.messages.map(msg => ({
         ...msg,
