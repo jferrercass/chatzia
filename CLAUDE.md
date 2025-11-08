@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Chatzia is a chatbot platform built with React, TypeScript, and Vite. The application allows users to create, configure, and manage AI chatbots with integration capabilities for WhatsApp and Telegram.
+FeedFlow is a comprehensive RSS feed management SaaS platform built with React, TypeScript, and Vite. The application allows users to create RSS feeds from various sources (websites, social media platforms), customize and filter feeds, bundle multiple feeds together, and embed them on websites using widgets.
 
 ## Development Commands
 
@@ -43,10 +43,11 @@ This is a single-page application (SPA) with view-based navigation managed throu
 
 **Main Components** (all defined in `src/App.tsx`):
 - `Sidebar`: Fixed navigation menu for switching between views
-- `Dashboard`: Overview with metrics and chatbot list
-- `CreateBot`: Form for creating/editing chatbots with knowledge training tabs
-- `Conversations`: List and detail view of chatbot conversations
-- `Integrations`: WhatsApp and Telegram integration setup
+- `Dashboard`: Overview with metrics and RSS feed list
+- `CreateFeed`: Form for creating/editing RSS feeds with source configuration
+- `FeedReader`: Display and manage feed items with filtering options
+- `Bundles`: Create and manage feed bundles (multiple feeds merged)
+- `Widgets`: Generate embeddable widgets for websites
 - `Analytics`: Charts and metrics visualization
 - `Settings`: Account and plan configuration
 
@@ -55,14 +56,17 @@ This is a single-page application (SPA) with view-based navigation managed throu
 The application uses local state management (React useState) with persistent storage via `window.storage` API:
 
 **Core Types**:
-- `Chatbot`: Bot configuration including name, description, language, personality, and knowledge base
-- `Conversation`: Chat sessions with messages, status (active/closed), and channel
-- `Knowledge`: Training data structure with files, URLs, FAQs, and text fields
-- `Message`: Individual chat messages with role (user/bot), content, and timestamp
+- `RSSFeed`: Feed configuration including name, source URL, source type (website, social media), and filters
+- `FeedItem`: Individual RSS items with title, description, link, pubDate, and content
+- `Bundle`: Collection of multiple feeds merged together
+- `Widget`: Embeddable widget configuration with styling and feed selection
+- `Filter`: Feed filtering rules including keywords, domains, and date ranges
 
 **Storage Keys**:
-- `chatbots`: Array of chatbot configurations
-- `conversations`: Array of conversation histories
+- `rssFeeds`: Array of RSS feed configurations
+- `feedItems`: Array of cached feed items
+- `bundles`: Array of feed bundles
+- `widgets`: Array of widget configurations
 
 Data is stored as JSON strings and parsed on load. The `window.storage` API is expected to be provided by the runtime environment.
 
@@ -76,10 +80,11 @@ Data is stored as JSON strings and parsed on load. The `window.storage` API is e
 ### View Navigation
 
 Views are selected through the `currentView` state variable:
-- `dashboard`: Main overview
-- `create`: Bot creation/editing (check `selectedBot` to determine mode)
-- `conversations`: Conversation list
-- `integrations`: Channel integration setup
+- `dashboard`: Main overview with feed list
+- `create`: Feed creation/editing (check `selectedFeed` to determine mode)
+- `reader`: Feed reader with item display and filtering
+- `bundles`: Feed bundle management
+- `widgets`: Widget generator and configuration
 - `analytics`: Metrics and reporting
 - `settings`: Account configuration
 
